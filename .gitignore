@@ -1,0 +1,13 @@
+# 1. Banco de datos y ejecuciones locales
+data/
+runs/
+
+# 2. Claves de API y entornos virtuales
+.env
+venv/
+env/
+
+# 3. Archivos temporales de Python
+__pycache__/
+*.pyc
+.pytest_cache/
