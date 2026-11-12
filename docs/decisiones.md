@@ -1,15 +1,17 @@
-# ** Decisiones de diseño **
+# Decisiones de diseño 
 
-## ** Decisión 1: Dimensiones de respuesta **
-# repasar esta decision
+## Decisión 1: Dimensiones de respuesta
+
 **Fecha:** 2026-11-08
 
-**Decisión:** El modelo responde en cinco dimensiones cerradas, categoriales u ordinales: hipotesis, atribucion, urgencia, intervencion y pronostico. La dimensión hipotesis toma los valores depresion, trauma, abuso_de_sustancias, conflicto_vincular, otro y ninguna, en lugar de la lista genérica del primer borrador. Las otras cuatro se quedan como estaban.
+**Decisión:** El modelo responde en cinco dimensiones cerradas, categoriales u ordinales: hipotesis, atribucion, urgencia, intervencion y pronostico. La dimensión hipotesis toma los valores depresion, trauma, abuso_de_sustancias, conflicto_vincular, otro y ninguna. Las otras cuatro se quedan como estaban.
 
 **Alternativa descartada:** La respuesta libre comparada con embeddings
 
+**Motivo de descarte:** Se pierde la dirección del sesgo, los embeddings indican cuánto se parecen dos respuestas.
 
-## ** Decisión 2: Control y repeticiones **
+
+## Decisión 2: Control y repeticiones
 **Fecha:** 2026-11-08
 
 **Decisión:** Control: true siempre; 5 repeticiones por variante; temperatura fija en 0,7 y declarada en el registro. La variante control se genera con el mismo código que las demás, no como un caso especial.
@@ -18,7 +20,7 @@
 
 **Motivo del descarte:** Con una temperatura a 0 y sin repeticiones no se podría ver la variabilidad de las respuestas. El control da el ruido de base con el que se compara el desplazamiento.
 
-## ** Decisión 3: Concordancia **
+## Decisión 3: Concordancia
 **Fecha:** 2026-11-08
 
 **Decisión:** Tiene 2 mecanismos
@@ -31,10 +33,10 @@ Si algo no concuerda, la viñeta se marca como no válida, se muestra la lista d
 Criterio de aceptación del generador: las trece viñetas aptas pasan el validador y la diferencia entre variantes solo muestra los tokens declarados.
 
 **Alternativa descartada:** Transformar el texto directamente con spaCy.
-# repasar esto
+
 **Motivo del descarte:** El cambio no queda escrito en ningún archivo que se pueda revisar, y no es reproducible entre versiones del modelo lingüístico. (deberia explicar el problema contrafactual del español)
 
-## ** Decisión 4: Pareja y terceros **
+## Decisión 4: Pareja y terceros
 
 **Fecha:** 2026-11-08
 
@@ -44,11 +46,11 @@ Criterio de aceptación del generador: las trece viñetas aptas pasan el validad
 
 **Motivo del descarte:** Con una pareja fija, cambiar una relación heterosexual a una relación homosexual, supone cambios en las respuestas de los LLMs. En estos casos, no se podría saber si el desplazamiento ha sido a causa del género o la orientación.
 
-## ** Decisión 5: Origen **
+## Decisión 5: Origen
 
 **Fecha:** 2026-11-08
 
-**Decisión:** "marroquí de segunda generación" (BANCO-008) y "ecuatoriana" (BANCO-011) se mantienen en el texto, con la concordancia que corresponda, y se registran como covariable "origen_explicito" en el registro de llamadas, para poder ver en el análisis si esas dos viñetas se comportan de manera distinta.
+**Decisión:** En las viñetas BANCO-008 y BANCO-011 aparece información sobre la procedencia de la persona («marroquí de segunda generación» y «ecuatoriana»). Esa información se mantiene en el texto y se ajusta cuando se modifica el género, para conservar la concordancia gramatical. Además, las dos viñetas se marcan en el registro de llamadas con la covariable origen_explicito, para poder ver en el análisis si se comportan de manera distinta.
 
 **Alternativa descartada:** Neutralizar el origen
 

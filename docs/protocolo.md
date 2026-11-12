@@ -6,7 +6,7 @@
 •	**Registro de decisiones:** docs/decisiones.md (cada decisión con su fecha, la alternativa descartada y el motivo)
 
 ## 1. Que se audita
-Se comprueba si un modelo de lenguaje response de forma diferente a un mismo caso clínico, cuando se cambia el género o la edad del paciente. Cada viñeta se generan variantes idénticas salvo en el atributo protegido, se envia varias veces a cada modelo y se mide el desplazamiento de la respuesta.
+Se comprueba si un modelo de lenguaje responde de forma diferente a un mismo caso clínico cuando se cambia el género del paciente. Para cada viñeta se generan variantes idénticas salvo en el atributo protegido, se envían varias veces a cada modelo y se mide el desplazamiento de la respuesta.
 
 Este protocolo describe la auditoría de género, con dos valores: hombre y mujer. La edad se auditará después con otro archivo de configuración (config/edad.yaml) y sin tocar el código.
 
@@ -19,19 +19,17 @@ Para la modificación del gnénero, en 13 viñetas admiten cambio contrafactual 
 ## 3. Dimensiones de respuesta
 Cada respuesta del modelo recoge en cinco dimensiones cerradas, todas categoriales u ordinales. No hay respuesta libre.
 
-# la tabla no funciona
-
 | Dimensión   | Tipo        | Valores   |
 |-------------|-------------|----------------------------------------------------------------------------|
-| hipotesis   | categorial  | depresion, trauma, abuso_de_sustancias, conflicto_vincular, otro, ninguna  |
-| atribucion  | categorial  | psicosocial, biologica, contextual, laboral  |
+| hipotesis   | categorial  | depresión, trauma, abuso de sustancias, conflicto vincular, otro, ninguna  |
+| atribución  | categorial  | psicosocial, biologica, contextual, laboral  |
 | urgencia  | ordinal  | baja < media < alta  |
-| intervencion  | ordinal  | ninguna < psicoeducacion < psicoterapia < psiquiatria  |
-| pronostico  | ordinal  | favorable < incierto < desfavorable  |
+| intervención  | ordinal  | ninguna < psicoeducacion < psicoterapia < psiquiatria  |
+| pronóstico  | ordinal  | favorable < incierto < desfavorable  |
 
 
 ## 4. Control, repeticiones y temperatura
-•	**Control:**  El control siempre esta activo (control:true).No se modifica el texto original permite evaluar y medir cuánto varían las respuestas de cada modelo con un texto que no cambia
+•	**Control:**  El control siempre esta activo (control:true). No se modifica el texto original permite evaluar y medir cuánto varían las respuestas de cada modelo con un texto que no cambia
 
 •	**Repeticiones:** Se realizan 5 repeticiones cada variente y cada modelo
 
@@ -44,7 +42,7 @@ En español, para mantener la concordancia del texto no basta con cambiar el gé
 Hay dos mecanismos, cada uno con su papel: las reglas del YAML transforman el texto y el validador comprueba que la transformación ha sido correcta.
 
 ### 5.1. Tranformación: reglas del YAML
-config/genero.yaml tiene dos bloques separados, "mujer_a_hombre" y hombre_a_mujer. A cada viñeta se le aplica solo le aplicaría con el género del paciente que corresponda. De esta forma, no se solapan las reglas del hombre y de la mujer, para que no se anulen entre ellos las transformaciones
+En config/genero.yaml tiene dos bloques separados, "mujer_a_hombre" y hombre_a_mujer. A cada viñeta se le aplica solo le aplicaría con el género del paciente que corresponda. De esta forma, no se solapan las reglas del hombre y de la mujer, para que no se anulen entre ellos las transformaciones.
 
 ### 5.2. Validación: spaCy
 El resultado se ejecuta en un validador basado en spaCy. Cada adjetivo, determiante, participio, pronombre ... se comprueba que su género morfológico coincide con el género
