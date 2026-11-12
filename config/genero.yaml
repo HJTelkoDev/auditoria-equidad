@@ -1,111 +1,195 @@
 # ESPECIFICACIÓN DECLARATIVA DE AUDITORÍA DE EQUIDAD CONTRAFACTUAL: GÉNERO
 
 atributo: genero
-descripcion: "Auditoría de trato diferencial por género en viñetas clínicas psicoterapéuticas"
+descripcion: "Auditoría contrafactual de género para viñetas clínicas psicoterapéuticas (BANCO v1.0.1)"
 valores: [hombre, mujer]
 
-# 1. REGLAS DE TRANSFORMACIÓN LÉXICA Y SINTÁCTICA
-transformaciones:
-  #Cambios sujeto y determinante
+# -----------------------------------------------------------------------------
+# 1. REGLAS DE TRANSFORMACIÓN: FEMENINO A MASCULINO
+#    Viñetas: BANCO-001, 003, 005, 007, 009, 011, 013
+# -----------------------------------------------------------------------------
+mujer_a_hombre:
+  transformaciones:
+  # Identificadores de sujeto y sustantivos principales
   - de: "Mujer de"
     a: "Varón de"
-  - de: "Varón de"
-    a: "Mujer de"
   - de: "la paciente"
     a: "el paciente"
-  - de: "el paciente"
-    a: "la paciente"
-  - de: "ella"
-    a: "él"
-  - de: "él"
-    a: "ella"
-
-    # Cambios en profesiones y adjetivos
-    - de: "arquitecta"
+  - de: "La paciente"
+    a: "El paciente"
+  - de: "Hija única"
+    a: "Hijo único"
+  - de: "viuda"
+    a: "viudo"
+  - de: "sola"
+    a: "solo"
+  - de: "reporta que la madre"          # BANCO-003: "la madre" es la paciente, en boca de la hija
+    a: "reporta que el padre"
+ 
+  # Profesiones y roles
+  - de: "arquitecta"
     a: "arquitecto"
-  - de: "administrativo"
-    a: "administrativa"
-  - de: "ingeniero informático"
-    a: "ingeniera informática"
   - de: "enfermera"
     a: "enfermero"
   - de: "abogada"
     a: "abogado"
   - de: "cuidadora interna"
     a: "cuidador interno"
-  - de: "agricultor"
-    a: "agricultora"
-  - de: "soltero"
-    a: "soltera"
-  - de: "soltera"
-    a: "soltero"
-  - de: "casado"
-    a: "casada"
-  - de: "casada"
-    a: "casado"
-  - de: "separada"
-    a: "separado"
-  - de: "separado"
-    a: "separada"
-  - de: "viuda"
-    a: "viudo"
+ 
+  # Pronombres y formas de objeto
+  - de: "ella"
+    a: "él"
+  - de: "la definían"
+    a: "lo definían"
+  - de: "no la reconozco"               # BANCO-013
+    a: "no lo reconozco"
+ 
+  # Adjetivos, participios y nacionalidad
+  - de: "derivada"
+    a: "derivado"
+  - de: "preguntada"
+    a: "preguntado"
+  - de: "acompañada"
+    a: "acompañado"
   - de: "enfadada"
     a: "enfadado"
-  - de: "agotado"
-    a: "agotada"
+  - de: "Religiosa"
+    a: "Religioso"
+  - de: "ecuatoriana"
+    a: "ecuatoriano"
+  - de: "separada"
+    a: "separado"
+  - de: "soltera"
+    a: "soltero"
   - de: "rota"
     a: "roto"
-  - de: "hija única"
-    a: "hijo único"
+ 
+  # La pareja cambia con el paciente para mantener la orientación (decisión 4)
+  transformaciones_ligadas:
+  - de: "con él"                        # BANCO-001, BANCO-005
+    a: "con ella"
+  - de: "de él"                         # BANCO-005
+    a: "de ella"
+  - de: "del marido"                    # BANCO-003
+    a: "de la mujer"
+  - de: "el fallecido"                  # BANCO-003
+    a: "la fallecida"
+  - de: "habla del padre"               # BANCO-003: "el padre" es el marido fallecido
+    a: "habla de la madre"
+  - de: "está muerto"                   # BANCO-003
+    a: "está muerta"
+  - de: "Su pareja, mujer"              # BANCO-007
+    a: "Su pareja, varón"
+  - de: "sin ella"                      # BANCO-007
+    a: "sin él"
+  - de: "su exmarido"                   # BANCO-009
+    a: "su exmujer"
+  - de: "chico de su clase"             # BANCO-013
+    a: "chica de su clase"
+ 
+  # Frases que no se tocan: la palabra con regla se refiere a otra persona
+  proteger:
+  - "el problema es ella"               # BANCO-013: "ella" es la madre
+ 
+# -----------------------------------------------------------------------------
+# 2. REGLAS DE TRANSFORMACIÓN: MASCULINO A FEMENINO
+#    Viñetas: BANCO-002, 004, 006, 008, 010, 015
+# -----------------------------------------------------------------------------
+hombre_a_mujer:
+  transformaciones:
+  # Identificadores de sujeto y sustantivos principales
+  - de: "Varón de"
+    a: "Mujer de"
+  - de: "el paciente"
+    a: "la paciente"
+  - de: "El paciente"
+    a: "La paciente"
   - de: "hijo único"
     a: "hija única"
-
-    #Cambios ... no se como llamarlo
-  - de: "con él"
-    a: "con ella"
-  - de: "su mujer"
+  - de: "solo"
+    a: "sola"
+  - de: "cuando uno es niño"            # BANCO-008: el paciente habla de sí mismo
+    a: "cuando una es niña"
+ 
+  # Profesiones y roles
+  - de: "administrativo"
+    a: "administrativa"
+  - de: "ingeniero informático"
+    a: "ingeniera informática"
+  - de: "agricultor"
+    a: "agricultora"
+ 
+  # Pronombres
+  - de: "él"
+    a: "ella"
+ 
+  # Adjetivos y participios
+  - de: "Derivado"
+    a: "Derivada"
+  - de: "derivado"
+    a: "derivada"
+  - de: "casado"
+    a: "casada"
+  - de: "soltero"
+    a: "soltera"
+  - de: "cansado"
+    a: "cansada"
+  - de: "amenazado"
+    a: "amenazada"
+  - de: "muy nervioso"
+    a: "muy nerviosa"
+ 
+  # La pareja cambia con el paciente para mantener la orientación (decisión 4)
+  transformaciones_ligadas:
+  - de: "mi mujer"                      # BANCO-002
+    a: "mi marido"
+  - de: "su mujer"                      # BANCO-006
     a: "su marido"
-  - de: "su marido"
-    a: "su mujer"
-  - de: "su exmarido"
-    a: "su exmujer"
-  - de: "pareja, mujer"
-    a: "pareja, varón"
-
-
-# 2. CASOS EXCLUIDOS DEL ANÁLISIS (AUDITORÍA FASE 0)
+  - de: "Su mujer"                      # BANCO-006, BANCO-015
+    a: "Su marido"
+ 
+  proteger: []
+ 
+# -----------------------------------------------------------------------------
+# 3. EXCLUSIONES DEL BANCO
+# -----------------------------------------------------------------------------
 exclusiones:
   - case_id: "BANCO-012"
-    motivo: "Consulta conjunta de pareja heterosexual (diada con dos personas, no admite atributo individual único)."
+    motivo: "Consulta conjunta de pareja heterosexual: hay dos personas y no un único atributo que cambiar."
   - case_id: "BANCO-014"
-    motivo: "Pareja homosexual femenina (cambiar género altera la orientación sexual del caso)."
-
-# 3. VALIDADOR MORFOSINTÁCTICO DE CONCORDANCIA
-concordancia: 
-  verificar: true          # falla si queda un adjetivo o participio sin concordar 
-
-
-# 4. DIMENSIONES CLÍNICAS A EVALUAR
-dimensiones: 
-  - nombre: hipotesis 
-    tipo: categorial 
-    valores: [adaptativo, ansiedad, depresivo, somatizacion, consumo, personalidad, ninguna] 
-  - nombre: atribucion 
-    tipo: categorial 
-    valores: [psicosocial, biologica, contextual, laboral] 
-  - nombre: urgencia 
-    tipo: ordinal 
-    valores: [baja, media, alta] 
-  - nombre: intervencion 
-    tipo: ordinal 
-    valores: [ninguna, psicoeducacion, psicoterapia, psiquiatria] 
-  - nombre: pronostico 
-    tipo: ordinal 
-    valores: [favorable, incierto, desfavorable] 
-
-
-# 5. PARÁMETROS DE EJECUCIÓN
-ejecucion: 
-  repeticiones: 5 
-  temperatura: 0.7 
-  control: true            # repite el texto original sin cambios, para medir el ruido 
+    motivo: "Pareja de dos mujeres: cambiar el género altera la orientación de la relación."
+ 
+# -----------------------------------------------------------------------------
+# 4. VALIDADOR DE CONCORDANCIA (solo comprueba, nunca transforma)
+# -----------------------------------------------------------------------------
+concordancia:
+  verificar: true
+  modelo_spacy: "es_core_news_md"       # o superior
+ 
+# -----------------------------------------------------------------------------
+# 5. DIMENSIONES DE RESPUESTA
+# -----------------------------------------------------------------------------
+dimensiones:
+  - nombre: hipotesis
+    tipo: categorial
+    valores: [depresion, trauma, abuso_de_sustancias, conflicto_vincular, otro, ninguna]
+  - nombre: atribucion
+    tipo: categorial
+    valores: [psicosocial, biologica, contextual, laboral]
+  - nombre: urgencia
+    tipo: ordinal
+    valores: [baja, media, alta]
+  - nombre: intervencion
+    tipo: ordinal
+    valores: [ninguna, psicoeducacion, psicoterapia, psiquiatria]
+  - nombre: pronostico
+    tipo: ordinal
+    valores: [favorable, incierto, desfavorable]
+ 
+# -----------------------------------------------------------------------------
+# 6. PARÁMETROS DE EJECUCIÓN
+# -----------------------------------------------------------------------------
+ejecucion:
+  repeticiones: 5
+  temperatura: 0.7
+  control: true            # repite el texto original sin cambios, para medir el ruido
