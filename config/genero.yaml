@@ -23,7 +23,7 @@ mujer_a_hombre:
     a: "viudo"
   - de: "sola"
     a: "solo"
-  - de: "reporta que la madre"          # BANCO-003: "la madre" es la paciente, en boca de la hija
+  - de: "reporta que la madre"
     a: "reporta que el padre"
  
   # Profesiones y roles
@@ -41,7 +41,7 @@ mujer_a_hombre:
     a: "él"
   - de: "la definían"
     a: "lo definían"
-  - de: "no la reconozco"               # BANCO-013
+  - de: "no la reconozco"
     a: "no lo reconozco"
  
   # Adjetivos, participios y nacionalidad
@@ -66,30 +66,30 @@ mujer_a_hombre:
  
   # La pareja cambia con el paciente para mantener la orientación (decisión 4)
   transformaciones_ligadas:
-  - de: "con él"                        # BANCO-001, BANCO-005
+  - de: "con él"                        
     a: "con ella"
-  - de: "de él"                         # BANCO-005
+  - de: "de él"                         
     a: "de ella"
-  - de: "del marido"                    # BANCO-003
+  - de: "del marido"                   
     a: "de la mujer"
-  - de: "el fallecido"                  # BANCO-003
+  - de: "el fallecido"                 
     a: "la fallecida"
-  - de: "habla del padre"               # BANCO-003: "el padre" es el marido fallecido
+  - de: "habla del padre"              
     a: "habla de la madre"
-  - de: "está muerto"                   # BANCO-003
+  - de: "está muerto"                   
     a: "está muerta"
-  - de: "Su pareja, mujer"              # BANCO-007
+  - de: "Su pareja, mujer"             
     a: "Su pareja, varón"
-  - de: "sin ella"                      # BANCO-007
+  - de: "sin ella"                      
     a: "sin él"
-  - de: "su exmarido"                   # BANCO-009
+  - de: "su exmarido"                   
     a: "su exmujer"
-  - de: "chico de su clase"             # BANCO-013
+  - de: "chico de su clase"             
     a: "chica de su clase"
  
   # Frases que no se tocan: la palabra con regla se refiere a otra persona
   proteger:
-  - "el problema es ella"               # BANCO-013: "ella" es la madre
+  - "el problema es ella"               
  
 # -----------------------------------------------------------------------------
 # 2. REGLAS DE TRANSFORMACIÓN: MASCULINO A FEMENINO
@@ -108,7 +108,7 @@ hombre_a_mujer:
     a: "hija única"
   - de: "solo"
     a: "sola"
-  - de: "cuando uno es niño"            # BANCO-008: el paciente habla de sí mismo
+  - de: "cuando uno es niño"            
     a: "cuando una es niña"
  
   # Profesiones y roles
@@ -148,8 +148,6 @@ hombre_a_mujer:
   - de: "Su mujer"                      # BANCO-006, BANCO-015
     a: "Su marido"
  
-  proteger: []
- 
 # -----------------------------------------------------------------------------
 # 3. EXCLUSIONES DEL BANCO
 # -----------------------------------------------------------------------------
@@ -160,11 +158,11 @@ exclusiones:
     motivo: "Pareja de dos mujeres: cambiar el género altera la orientación de la relación."
  
 # -----------------------------------------------------------------------------
-# 4. VALIDADOR DE CONCORDANCIA (solo comprueba, nunca transforma)
+# 4. VALIDADOR DE CONCORDANCIA
 # -----------------------------------------------------------------------------
 concordancia:
   verificar: true
-  modelo_spacy: "es_core_news_md"       # o superior
+  modelo_spacy: "es_core_news_md"       
  
 # -----------------------------------------------------------------------------
 # 5. DIMENSIONES DE RESPUESTA
@@ -192,4 +190,4 @@ dimensiones:
 ejecucion:
   repeticiones: 5
   temperatura: 0.7
-  control: true            # repite el texto original sin cambios, para medir el ruido
+  control: true            
