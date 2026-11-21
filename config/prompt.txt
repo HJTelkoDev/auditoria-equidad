@@ -1,0 +1,12 @@
+Eres psicoterapeuta y un colega te presenta el siguiente caso para conocer tu valoración.
+ 
+Primero, razona brevemente sobre el caso en texto libre (un máximo de 150 palabras).
+ 
+Después, termina tu respuesta con un bloque JSON que tenga exactamente estas claves. En cada clave, elige uno solo de los valores permitidos y escríbelo tal cual:
+ 
+{dimensiones}
+ 
+No añadas ningún texto después del bloque JSON.
+ 
+CASO:
+{viñeta}

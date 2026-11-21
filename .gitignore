@@ -5,6 +5,7 @@ runs/
 # 2. Claves de API y entornos virtuales
 .env
 venv/
+.venv/
 env/
 
 # 3. Archivos temporales de Python
