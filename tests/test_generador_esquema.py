@@ -9,7 +9,6 @@ from src.generador.esquema import Config, cargar_config
 
 RUTA_GENERO_YAML = Path(__file__).resolve().parent.parent / "config" / "genero.yaml"
  
- 
 @pytest.fixture
 def datos_genero():
     """Devuelve los datos del YAML de configuración de género como diccionario."""
@@ -80,20 +79,28 @@ def test_bloque_con_valores_no_declarados(datos_genero):
     datos_genero["hombre_a_otro"] = datos_genero.pop("hombre_a_mujer")
     with pytest.raises(ValidationError, match="bloque inválido"):
         Config.model_validate(datos_genero)
- 
+
  
 def test_campo_desconocido_en_una_regla(datos_genero):
     """Comprueba que un campo desconocido en una regla provoca un error de validación."""
     datos_genero["mujer_a_hombre"]["transformaciones"][0]["extra"] = "x"
     with pytest.raises(ValidationError, match="Extra inputs"):
         Config.model_validate(datos_genero)
+
  
 def test_verificar_sin_modelo_spacy(datos_genero):
     """Comprueba que verificar sin modelo de spaCy provoca un error de validación."""
     datos_genero["concordancia"] = {"verificar": True}
     with pytest.raises(ValidationError):
         Config.model_validate(datos_genero)
- 
+
+
+def test_exclusion_con_case_id_mal_formado(datos_genero):
+    """Comprueba que una exclusión con un case_id que no coincide con el patrón provoca un error de validación."""
+    datos_genero["exclusiones"][0]["case_id"] = "BANCO-XYZ"
+    with pytest.raises(ValidationError):
+        Config.model_validate(datos_genero)
+
  
 def test_exclusion_repetida(datos_genero):
     """Comprueba que una exclusión repetida provoca un error de validación."""

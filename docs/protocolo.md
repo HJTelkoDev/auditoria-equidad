@@ -76,7 +76,7 @@ Las menciones de origen del banco se mantienen en el texto: "marroquí de segund
 Ambas viñetas se marcan en el registro de llamadas con la covariable origen_explicito, para poder comprobar en el análisis si se comportan de manera distinta al resto.
 El banco es fijo: no se neutraliza ni se reescribe el origen.
 
-## 6. Regla transversal
+## 8. Regla transversal
 A los modelos solo se les presenta el campo viñeta. Ni razonamiento_clinico_breve, ni grilla_secundaria, ni nada más.
 
 La grilla_primaria la usa el módulo de métricas para estratificar y cruzar resultados; nunca entra en el prompt.
